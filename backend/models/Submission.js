@@ -21,6 +21,10 @@ const submissionSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
+  isPinned: {
+    type: Boolean,
+    default: false
+  },
   blessingMeter: {
     type: Number,
     required: [true, 'Blessing meter rating is required'],

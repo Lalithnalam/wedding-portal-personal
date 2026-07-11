@@ -68,14 +68,52 @@ router.post('/login', async (req, res) => {
  */
 router.get('/submissions', auth, async (req, res) => {
     try {
-        // Fetch all submissions, sorted by submittedAt descending
-        const submissions = await Submission.find().sort({ submittedAt: -1 });
+        // Fetch all submissions, sorted by pinned (true first), then submittedAt descending
+        const submissions = await Submission.find().sort({ isPinned: -1, submittedAt: -1 });
         
         res.json({
             success: true,
             count: submissions.length,
             data: submissions
         });
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ success: false, message: 'Server error' });
+    }
+});
+
+/**
+ * @route   DELETE /api/admin/submissions/:id
+ * @desc    Delete a submission
+ * @access  Private (Requires JWT)
+ */
+router.delete('/submissions/:id', auth, async (req, res) => {
+    try {
+        const submission = await Submission.findByIdAndDelete(req.params.id);
+        if (!submission) {
+            return res.status(404).json({ success: false, message: 'Submission not found' });
+        }
+        res.json({ success: true, message: 'Submission deleted' });
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ success: false, message: 'Server error' });
+    }
+});
+
+/**
+ * @route   PATCH /api/admin/submissions/:id/pin
+ * @desc    Toggle pin status of a submission
+ * @access  Private (Requires JWT)
+ */
+router.patch('/submissions/:id/pin', auth, async (req, res) => {
+    try {
+        const submission = await Submission.findById(req.params.id);
+        if (!submission) {
+            return res.status(404).json({ success: false, message: 'Submission not found' });
+        }
+        submission.isPinned = !submission.isPinned;
+        await submission.save();
+        res.json({ success: true, data: submission });
     } catch (error) {
         console.error(error.message);
         res.status(500).json({ success: false, message: 'Server error' });

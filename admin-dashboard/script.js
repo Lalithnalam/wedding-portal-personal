@@ -140,7 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
             card.innerHTML = `
                 <div class="card-header">
                     <div class="guest-info">
-                        <h2>${displayName}</h2>
+                        <h2>${sub.isPinned ? '<i class="fa-solid fa-thumbtack" style="color:var(--gold); margin-right:8px; font-size:1rem;"></i>' : ''}${displayName}</h2>
                         <div class="guest-meta">
                             <span class="tag">${sub.side}</span>
                             <span class="tag">${sub.relationship}</span>
@@ -158,8 +158,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="timestamp" style="margin-top: 0;">${new Date(sub.submittedAt).toLocaleDateString()}</div>
                 </div>
                 
-                <div style="text-align: center; margin-top: 15px; border-top: 1px solid var(--cream); padding-top: 10px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px; border-top: 1px solid var(--cream); padding-top: 10px;">
+                    <button class="action-btn pin-btn ${sub.isPinned ? 'pinned' : ''}" onclick="event.stopPropagation(); window.togglePin('${sub._id}')" title="Pin to top">
+                        <i class="fa-solid fa-thumbtack"></i>
+                    </button>
                     <span style="color: var(--sage-green); font-size: 0.9rem; font-weight: bold;">Click to view full details</span>
+                    <button class="action-btn delete-btn" onclick="event.stopPropagation(); window.deleteSubmission('${sub._id}')" title="Delete wish">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
                 </div>
             `;
 
@@ -301,6 +307,47 @@ document.addEventListener('DOMContentLoaded', () => {
             imageModal.style.display = 'none';
         }
     });
+
+    window.togglePin = async (id) => {
+        const token = localStorage.getItem('wedding_admin_token');
+        try {
+            const res = await fetch(`/api/admin/submissions/${id}/pin`, {
+                method: 'PATCH',
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            const data = await res.json();
+            if (data.success) {
+                fetchSubmissions();
+            } else {
+                alert('Failed to pin.');
+            }
+        } catch (err) {
+            console.error(err);
+            alert('Failed to pin.');
+        }
+    };
+
+    window.deleteSubmission = async (id) => {
+        if (!confirm("Are you sure you want to delete this wish?")) return;
+        if (!confirm("Are you ABSOLUTELY sure? This action cannot be undone.")) return;
+        
+        const token = localStorage.getItem('wedding_admin_token');
+        try {
+            const res = await fetch(`/api/admin/submissions/${id}`, {
+                method: 'DELETE',
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            const data = await res.json();
+            if (data.success) {
+                fetchSubmissions();
+            } else {
+                alert('Failed to delete.');
+            }
+        } catch (err) {
+            console.error(err);
+            alert('Failed to delete.');
+        }
+    };
 
     if(closeDetailModal) {
         closeDetailModal.addEventListener('click', () => {
