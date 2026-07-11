@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Wedding Wisdom & Wishes</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lato:ital,wght@0,300;0,400;0,700;1,400&family=Pinyon+Script&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Icons for emojis/controls -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="styles.css?v=2">
+</head>
+<body>
+
+
+
+    <div class="app-container">
+        
+        <!-- 1. Welcome Screen -->
+        <section id="welcome-screen" class="view active">
+            <div class="flex-center">
+                <div class="content-wrapper text-center glass-card">
+                <div class="date-badge">16 . 08 . 2026</div>
+                <h1 class="elegant-title">Threads of Our Story</h1>
+                <div class="couple-names">Manasa <span>&amp;</span> Bipin</div>
+                
+                <p class="welcome-message">
+                    Warm welcome to our special day's guestbook.
+                </p>
+                
+                <div class="purpose-card">
+                    <p>
+                        "Every word you leave behind today becomes a thread in the tapestry of our forever - woven quietly, kept dearly, and read again on every anniversary to come."
+                    </p>
+                </div>
+                
+                <button id="btn-get-started" class="btn primary-btn mt-10">Get Started</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Main Form (Multi-Step) -->
+        <section id="form-screen" class="view">
+
+            <form id="wishes-form" class="form-wrapper" novalidate>
+                
+                <div class="progress-header">
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="form-progress" style="width: 25%"></div>
+                    </div>
+                    <div class="step-indicator" id="step-indicator">Step 1 of 4</div>
+                </div>
+
+                <!-- STEP 1: Basics & Identity -->
+                <div class="form-step active" data-step="1">
+                    <div class="form-section">
+                        <h2 class="section-title">Section A - About You</h2>
+                        
+                        <div class="form-group">
+                            <label for="guest-name">Guest Name <span class="required">*</span></label>
+                            <input type="text" id="guest-name" name="guestName" placeholder="Your full name" required>
+                            <div class="error-message">Please enter your name.</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Bride Side / Groom Side <span class="required">*</span></label>
+                            <div class="segmented-control">
+                                <input type="radio" id="side-bride" name="weddingSide" value="Bride Side" required>
+                                <label for="side-bride">Bride Side</label>
+                                
+                                <input type="radio" id="side-groom" name="weddingSide" value="Groom Side">
+                                <label for="side-groom">Groom Side</label>
+                            </div>
+                            <div class="error-message">Please select a side.</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="relationship">Relationship to Couple <span class="required">*</span></label>
+                            <div class="custom-select-wrapper">
+                                <select id="relationship" name="relationship" required>
+                                    <option value="" disabled selected>Select relationship...</option>
+                                    <option value="Family">Family</option>
+                                    <option value="Friend">Friend</option>
+                                    <option value="Colleague">Colleague</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="error-message">Please select your relationship.</div>
+                        </div>
+                        
+                        <div class="form-group" id="other-relationship-group" style="display: none;">
+                            <label for="other-relationship">Please specify <span class="required">*</span></label>
+                            <input type="text" id="other-relationship" name="otherRelationship" placeholder="How do you know the couple?">
+                            <div class="error-message">Please specify your relationship.</div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h2 class="section-title">Section B - Identity Preference</h2>
+                        <p class="section-desc">Would you like to hide your identity while sharing your wisdom and advice?</p>
+                        
+                        <div class="toggle-cards">
+                            <label class="toggle-card active">
+                                <input type="radio" name="identityPref" value="public" checked>
+                                <div class="card-content">
+                                    <i class="fa-regular fa-face-smile"></i>
+                                    <span>No, I'm happy to share my identity</span>
+                                </div>
+                            </label>
+                            <label class="toggle-card">
+                                <input type="radio" name="identityPref" value="anonymous">
+                                <div class="card-content">
+                                    <i class="fa-solid fa-user-secret"></i>
+                                    <span>Yes, I'd like to stay anonymous</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 2: Blessing & Wishes -->
+                <div class="form-step" data-step="2">
+                    <div class="form-section">
+                        <h2 class="section-title">Section C - Blessing Meter <span class="required">*</span></h2>
+                        <p class="section-desc">How excited are you for the couple?</p>
+                        
+                        <div class="slider-container">
+                            <div class="emoji-row">
+                                <span class="emoji-icon" data-val="1">🙂</span>
+                                <span class="emoji-icon" data-val="2">😊</span>
+                                <span class="emoji-icon" data-val="3">😃</span>
+                                <span class="emoji-icon" data-val="4">🤩</span>
+                                <span class="emoji-icon active" data-val="5">🥰</span>
+                            </div>
+                            <input type="range" id="blessing-meter" name="blessingMeter" min="1" max="5" value="5" class="custom-slider" required>
+                            <div class="slider-labels">
+                                <span>Happy for you</span>
+                                <span>Absolutely Thrilled</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h2 class="section-title">Section D - Wedding Wishes</h2>
+                        <div class="form-group">
+                            <label for="wish-text">What would you like to wish the couple? <span class="required">*</span></label>
+                            <textarea id="wish-text" name="wishText" rows="4" placeholder="Pour your heart out here..." required></textarea>
+                            <div class="error-message">Please write a wish.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 3: Advice -->
+                <div class="form-step" data-step="3">
+                    <div class="form-section">
+                        <h2 class="section-title">Section E - Advice (Do's)</h2>
+                        <div class="form-group">
+                            <label for="advice-do">Based on your experience, what should the couple definitely do in married life? <span class="required">*</span></label>
+                            <textarea id="advice-do" name="adviceDo" rows="4" placeholder="Share your wisdom..." required></textarea>
+                            <div class="error-message">Please share some advice.</div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h2 class="section-title">Section F - Advice (Don'ts)</h2>
+                        <div class="form-group">
+                            <label for="advice-dont">Based on your experience, what should the couple avoid in married life? <span class="required">*</span></label>
+                            <textarea id="advice-dont" name="adviceDont" rows="4" placeholder="Things to steer clear of..." required></textarea>
+                            <div class="error-message">Please share some advice.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 4: The Checkpoint -->
+                <div class="form-step checkpoint-step" data-step="4">
+                    <div class="content-wrapper text-center flex-center" style="min-height: auto; padding: 20px 0;">
+                        <div class="success-icon checkpoint-icon">
+                            <i class="fa-solid fa-check"></i>
+                        </div>
+                        <h2 class="elegant-title" style="font-size: 1.8rem;">You're All Set!</h2>
+                        
+                        <div class="purpose-card mt-5 mb-5" style="text-align: left;">
+                            <p>You have successfully completed all the essential wishes and advice. Thank you so much!</p>
+                        </div>
+
+                        <p class="section-desc">You can submit your wishes right now, or if you have a little more time, continue to our optional sections to share memories, predictions, voice notes, and photos.</p>
+                        
+                        <button type="button" class="btn primary-btn mt-5" id="btn-submit-early">Submit My Wishes Now</button>
+                        <button type="button" class="btn secondary-btn mt-5" id="btn-continue-optional">Share More Love & Memories</button>
+                    </div>
+                </div>
+
+                <!-- STEP 5: Memories & Predictions (Optional) -->
+                <div class="form-step" data-step="5" data-optional="true">
+                    <div class="form-section">
+                        <h2 class="section-title">Section G - Favorite Memory (Optional)</h2>
+                        <div class="form-group">
+                            <label for="favorite-memory">Do you have a favorite memory with the couple?</label>
+                            <textarea id="favorite-memory" name="favoriteMemory" rows="4" placeholder="A fun story or beautiful moment..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h2 class="section-title">Section H - Wedding Predictions (Optional)</h2>
+                        <p class="section-desc">What do you think the future holds for this couple?</p>
+                        
+                        <div class="chips-grid">
+                            <label class="chip">
+                                <input type="checkbox" name="predictions" value="Travel the world">
+                                <span>They'll travel the world together</span>
+                            </label>
+                            <label class="chip">
+                                <input type="checkbox" name="predictions" value="Build a beautiful family">
+                                <span>They'll build a beautiful family</span>
+                            </label>
+                            <label class="chip">
+                                <input type="checkbox" name="predictions" value="Adopt pets">
+                                <span>They'll adopt 3 dogs</span>
+                            </label>
+                            <label class="chip">
+                                <input type="checkbox" name="predictions" value="Laugh together">
+                                <span>They'll always keep each other laughing</span>
+                            </label>
+                            <label class="chip">
+                                <input type="checkbox" name="predictions" value="Cook together">
+                                <span>They'll become master chefs together</span>
+                            </label>
+                            <label class="chip">
+                                <input type="checkbox" name="predictions" value="Start a business">
+                                <span>They'll start a business</span>
+                            </label>
+                        </div>
+                        
+                        <div class="form-group mt-5">
+                            <label for="custom-prediction">Custom Prediction</label>
+                            <input type="text" id="custom-prediction" name="customPrediction" placeholder="Add your own prediction...">
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h2 class="section-title">Section I - Additional Message (Optional)</h2>
+                        <div class="form-group">
+                            <label for="additional-message">Any other stories or blessings?</label>
+                            <textarea id="additional-message" name="additionalMessage" rows="3" placeholder="Share anything else on your mind..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 6: Media Uploads (Optional) -->
+                <div class="form-step" data-step="6" data-optional="true">
+                    <div class="form-section">
+                        <h2 class="section-title">Section J - Voice Message (Optional)</h2>
+                        <p class="section-desc">Leave a voice note. Max length is 2 minutes.</p>
+                        
+                        <div class="audio-recorder">
+                            <div class="audio-controls">
+                                <button type="button" class="btn-record" id="btn-record">
+                                    <span class="record-dot"></span> Record
+                                </button>
+                                <button type="button" class="btn-playback" id="btn-playback" disabled>
+                                    <i class="fa-solid fa-play"></i> Playback
+                                </button>
+                            </div>
+                            
+                            <div class="audio-visualizer placeholder">
+                                <i class="fa-solid fa-microphone-lines"></i>
+                                <span class="timer" id="audio-timer">00:00</span>
+                                <span class="max-time">Max 2 minutes</span>
+                            </div>
+                            
+                            <div class="audio-actions hidden" id="audio-actions">
+                                <button type="button" class="text-link" id="btn-rerecord">Re-record</button>
+                                <button type="button" class="text-link danger" id="btn-remove-audio">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h2 class="section-title">Section K - Photo Upload (Optional)</h2>
+                        <p class="section-desc">Share moments captured. Maximum 3 photos (Max 10MB each).</p>
+                        
+                        <div class="photo-upload-zone" id="drop-zone">
+                            <p class="upload-hint">Tap to select or drag & drop</p>
+                            <input type="file" id="file-input" multiple accept="image/jpeg, image/png" class="hidden-input">
+                            
+                            <div class="thumbnail-slots" id="thumbnail-slots">
+                                <div class="slot empty-slot" id="slot-1"><i class="fa-solid fa-plus"></i></div>
+                                <div class="slot empty-slot" id="slot-2"><i class="fa-solid fa-plus"></i></div>
+                                <div class="slot empty-slot" id="slot-3"><i class="fa-solid fa-plus"></i></div>
+                            </div>
+                            
+                            <p class="upload-limits">Accepted formats: JPG, PNG</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step Navigation Footer -->
+                <div class="form-navigation-footer">
+                    <button type="button" class="btn outline-btn" id="btn-back" style="display: none;">Back</button>
+                    <button type="button" class="btn primary-btn" id="btn-next">Next</button>
+                    <button type="submit" class="btn primary-btn" id="btn-submit-final" style="display: none;">Send All Wishes</button>
+                </div>
+            </form>
+        </section>
+
+        <!-- 3. Thank You Screen -->
+        <section id="thank-you-screen" class="view">
+            <div class="flex-center">
+                <div class="content-wrapper text-center glass-card">
+                <div class="success-icon">
+                    <i class="fa-solid fa-heart"></i>
+                </div>
+                <h1 class="elegant-title">Thank You!</h1>
+                <p class="thank-you-message" id="dynamic-thank-you">
+                    Your beautiful wishes have been added to our collection.
+                </p>
+                <div class="purpose-card mt-10">
+                    <p>We can't wait to read your messages and look back on these memories.</p>
+                </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script src="script.js?v=2"></script>
+</body>
+</html>

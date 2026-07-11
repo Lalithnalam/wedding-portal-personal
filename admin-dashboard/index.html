@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Dashboard - Wedding Wisdom & Wishes</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700&family=Lato:wght@300;400;700&family=Pinyon+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- LOGIN SCREEN -->
+    <div id="login-screen" class="view active" style="background-image: url('/assets/full_floral_bg.png'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+        <div class="login-card" style="position: relative; z-index: 2;">
+            <h1 class="elegant-title">Memories Await</h1>
+            <p>Welcome back. Please log in to view the heartfelt wishes and wisdom shared by your guests.</p>
+            
+            <form id="login-form">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="email" required placeholder="admin@example.com">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="password" required placeholder="••••••••">
+                </div>
+                <div id="login-error" class="error-msg"></div>
+                <button type="submit" class="btn primary-btn" id="login-btn">Log In</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- DASHBOARD SCREEN -->
+    <div id="dashboard-screen" class="view" style="display: none;">
+        
+        <header class="dashboard-header">
+            <div class="header-content">
+                <h1 class="elegant-title">Wedding Wishes Dashboard</h1>
+                <div class="header-actions">
+                    <div style="font-size: 1.1rem; color: var(--text-medium); font-weight: 500; font-family: var(--font-heading); font-style: italic; background: var(--cream); padding: 8px 15px; border-radius: 20px;">
+                        Hey! You have <span id="total-wishes" style="font-weight: bold; color: var(--sage-green);">0</span> beautiful wishes waiting for you.
+                    </div>
+                    <button id="logout-btn" class="btn outline-btn small-btn">Logout</button>
+                </div>
+            </div>
+        </header>
+
+        <main class="dashboard-main">
+            <!-- Filter Bar -->
+            <div class="filter-bar">
+                <div class="search-box">
+                    <i class="fa-solid fa-search"></i>
+                    <input type="text" id="search-input" placeholder="Search names or messages...">
+                </div>
+                <div class="filter-select">
+                    <select id="side-filter">
+                        <option value="All">All Sides</option>
+                        <option value="Bride Side">Bride Side</option>
+                        <option value="Groom Side">Groom Side</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Loader -->
+            <div id="loader" class="loader-container">
+                <div class="spinner"></div>
+                <p>Loading wishes...</p>
+            </div>
+
+            <!-- Submissions Grid -->
+            <div id="submissions-grid" class="submissions-grid">
+                <!-- Cards will be injected here via JS -->
+            </div>
+            
+            <div id="no-results" class="no-results" style="display: none;">
+                <p>No wishes found matching your criteria.</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Detailed Wish Modal -->
+    <div id="detail-modal" class="modal">
+        <div class="modal-card">
+            <span class="close-detail-modal">&times;</span>
+            <div id="detail-modal-content">
+                <!-- Content injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Image Modal for Full Size Viewing -->
+    <div id="image-modal" class="modal" style="z-index: 2000;">
+        <span class="close-modal">&times;</span>
+        <img class="modal-content" id="full-image">
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
