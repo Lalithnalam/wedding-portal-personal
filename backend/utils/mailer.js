@@ -81,6 +81,13 @@ const sendSubmissionEmail = async (submission) => {
                     <p><strong>Photos:</strong><br/>${photoAttachments}</p>
                 </div>
 
+                <div style="text-align: center; margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee;">
+                    <p style="font-size: 14px; color: #5a6b60;">
+                        You can view all submissions in the Admin Dashboard: <br/>
+                        <a href="https://wedding-portal-personal.vercel.app/admin" style="display: inline-block; margin-top: 10px; padding: 10px 20px; background-color: #9CB4A6; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">Go to Admin Dashboard</a>
+                    </p>
+                </div>
+
                 <div style="text-align: center; font-size: 12px; color: #8c9c93; margin-top: 30px;">
                     <p>Submitted At: ${new Date(submission.submittedAt).toLocaleString()}</p>
                 </div>
