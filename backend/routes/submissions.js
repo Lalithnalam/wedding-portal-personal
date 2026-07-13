@@ -77,8 +77,8 @@ router.post('/', cpUpload, async (req, res) => {
         // Save to DB (this runs the Mongoose validators including the emoji check)
         const savedSubmission = await newSubmission.save();
 
-        // Send Email asynchronously (do not await so response isn't delayed if SMTP is slow)
-        sendSubmissionEmail(savedSubmission).catch(console.error);
+        // Send Email (must be awaited in serverless environments like Vercel)
+        await sendSubmissionEmail(savedSubmission);
 
         res.status(201).json({
             success: true,
